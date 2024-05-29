@@ -7,16 +7,33 @@ public class main {
 		// TODO Auto-generated method stub
 		
 		Random rand = new Random();
+		Scanner myObj = new Scanner(System.in);
 		
-		int randNumber = rand.nextInt(50);
+		System.out.println("Do you want to play the coin toss game? y / n ");
+
 		
-		if ((randNumber % 2) == 0) {
+		String userWantsToPlay = myObj.nextLine().toLowerCase();
+		
+		
+		while (true){
 			
-			System.out.print("Heads");
+			System.out.println("How many times you want to toss the coin? ");
+			int timesToToss = Integer.parseInt(myObj.nextLine().toLowerCase());
 			
-		}else {
+			for (int i = 0; i < timesToToss; i++) {
+				
+				int randNumber = rand.nextInt(50);
+				
+				if ((randNumber % 2) == 0) {
+					
+					System.out.println("Heads");
+					
+				}else {
+					
+					System.out.println("Tails");
+				}
+			}
 			
-			System.out.print("Tails");
 		}
 
 	}
