@@ -10,12 +10,13 @@ public class main {
 		Scanner myObj = new Scanner(System.in);
 		
 		System.out.println("Do you want to play the coin toss game? y / n ");
-
+		String userWantsToPlay = myObj.nextLine();
+				
+		int numberOfHeads = 0;
+		int numberOfTails = 0;
 		
-		String userWantsToPlay = myObj.nextLine().toLowerCase();
 		
-		
-		while (true){
+		while (userWantsToPlay.equals("y")){
 			
 			System.out.println("How many times you want to toss the coin? ");
 			int timesToToss = Integer.parseInt(myObj.nextLine().toLowerCase());
@@ -27,14 +28,21 @@ public class main {
 				if ((randNumber % 2) == 0) {
 					
 					System.out.println("Heads");
+					numberOfHeads++;
 					
 				}else {
 					
 					System.out.println("Tails");
+					numberOfTails++;
 				}
 			}
 			
+			System.out.println("Do you want to play again? y / n ");
+			userWantsToPlay = myObj.nextLine().toLowerCase();
+			
 		}
+		
+		System.out.println("Stats: \n Heads: " + numberOfHeads + "\n Tails: " + numberOfTails);
 
 	}
 
