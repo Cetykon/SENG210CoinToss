@@ -145,24 +145,24 @@ public class GUI extends JFrame {
             		
             		CoinToss coinToss = new CoinToss();
             		int tossNumber = coinToss.getTossNumber(txtTossNumber.getText());
-            		
-            		for (int i = 0; i < tossNumber; i++) {
-            		
-	            		String result = coinToss.Toss();
-	                    JLabel newLabel = picture.showToss(selectedCoin, result, width, height);
-	
-	                    if (newLabel != null) {
-	                        contentPane.remove(tossResultLabel); // Remove the old label
-	                        tossResultLabel = newLabel; // Update the reference
-	                        contentPane.add(tossResultLabel); // Add the new label
-	                        contentPane.revalidate(); // Revalidate the content pane
-	                        contentPane.repaint(); // Repaint the content pane
-	                    }
-            		}
-            		
-            		
-            		txtHeadCount.setText(String.valueOf(coinToss.numberOfHeads));
-            		txtTailsCount.setText(String.valueOf(coinToss.numberOfTails));
+            		// Check if tossNumber is valid
+                    if (tossNumber > 0) {
+	            		for (int i = 0; i < tossNumber; i++) {
+	            		
+		            		String result = coinToss.Toss();
+		                    JLabel newLabel = picture.showToss(selectedCoin, result, width, height);
+		
+		                    if (newLabel != null) {
+		                        contentPane.remove(tossResultLabel); // Remove the old label
+		                        tossResultLabel = newLabel; // Update the reference
+		                        contentPane.add(tossResultLabel); // Add the new label
+		                        contentPane.revalidate(); // Revalidate the content pane
+		                        contentPane.repaint(); // Repaint the content pane
+		                    }
+	            		}
+	            		txtHeadCount.setText(String.valueOf(coinToss.numberOfHeads));
+	            		txtTailsCount.setText(String.valueOf(coinToss.numberOfTails));
+                    }
             	}
             }
         });
@@ -232,8 +232,11 @@ class CoinToss {
     
     public int getTossNumber(String txtTossNumber) {
     	
-    	int number = Integer.parseInt(txtTossNumber);
-    	
-    	return number;
+    	 try {
+             return Integer.parseInt(txtTossNumber);
+         } catch (NumberFormatException e) {
+             JOptionPane.showMessageDialog(null, "Please enter a integer for the number of tosses.");
+             return -1;  // Return -1 to indicate an error
+         }
     }
 }
