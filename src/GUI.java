@@ -14,12 +14,14 @@ import java.util.Map;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class GUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JLabel tossResultLabel; // Keep a reference to the label
+    private JTextField txtTossNumber;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -82,6 +84,16 @@ public class GUI extends JFrame {
         int height = 344;
         tossResultLabel.setBounds(160, 29, width, height);
         contentPane.add(tossResultLabel);
+        
+        txtTossNumber = new JTextField();
+        txtTossNumber.setText("1");
+        txtTossNumber.setBounds(352, 381, 67, 21);
+        contentPane.add(txtTossNumber);
+        txtTossNumber.setColumns(10);
+        
+        JLabel lblNewLabel_1 = new JLabel("Number of tosses:");
+        lblNewLabel_1.setBounds(222, 386, 120, 13);
+        contentPane.add(lblNewLabel_1);
 
         // Create and set up the "Toss" button
         JButton btnNewButton = new JButton("Toss");
@@ -104,21 +116,28 @@ public class GUI extends JFrame {
             	
                 // If a coin is selected, perform the toss
             	if (selectedCoin != null){
-            		String result = coinToss.Toss();
-                    JLabel newLabel = picture.showToss(selectedCoin, result, width, height);
-
-                    if (newLabel != null) {
-                        contentPane.remove(tossResultLabel); // Remove the old label
-                        tossResultLabel = newLabel; // Update the reference
-                        contentPane.add(tossResultLabel); // Add the new label
-                        contentPane.revalidate(); // Revalidate the content pane
-                        contentPane.repaint(); // Repaint the content pane
-                    }
+            		
+            		int tossNumber = coinToss.getTossNumber(txtTossNumber.getText());
+            		
+            		for (int i = 0; i < tossNumber; i++) {
+            		
+	            		String result = coinToss.Toss();
+	                    JLabel newLabel = picture.showToss(selectedCoin, result, width, height);
+	
+	                    if (newLabel != null) {
+	                        contentPane.remove(tossResultLabel); // Remove the old label
+	                        tossResultLabel = newLabel; // Update the reference
+	                        contentPane.add(tossResultLabel); // Add the new label
+	                        contentPane.revalidate(); // Revalidate the content pane
+	                        contentPane.repaint(); // Repaint the content pane
+	                    }
+            		}
             	}
             }
         });
-        btnNewButton.setBounds(292, 378, 85, 21);
+        btnNewButton.setBounds(293, 412, 85, 21);
         contentPane.add(btnNewButton);
+        
     }
 }
 
@@ -178,5 +197,12 @@ class coinToss {
             numberOfTails++;
             return "Tails";
         }
+    }
+    
+    public static int getTossNumber(String txtTossNumber) {
+    	
+    	int number = Integer.parseInt(txtTossNumber);
+    	
+    	return number;
     }
 }
