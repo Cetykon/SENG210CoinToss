@@ -22,6 +22,8 @@ public class GUI extends JFrame {
     private JPanel contentPane;
     private JLabel tossResultLabel; // Keep a reference to the label
     private JTextField txtTossNumber;
+    private JTextField txtHeadCount;
+    private JTextField txtTailsCount;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -94,6 +96,30 @@ public class GUI extends JFrame {
         JLabel lblNewLabel_1 = new JLabel("Number of tosses:");
         lblNewLabel_1.setBounds(222, 386, 120, 13);
         contentPane.add(lblNewLabel_1);
+        
+        JLabel lblNewLabel_2 = new JLabel("Results:");
+        lblNewLabel_2.setBounds(592, 313, 45, 13);
+        contentPane.add(lblNewLabel_2);
+        
+        txtHeadCount = new JTextField();
+        txtHeadCount.setEditable(false);
+        txtHeadCount.setBounds(564, 361, 96, 19);
+        contentPane.add(txtHeadCount);
+        txtHeadCount.setColumns(10);
+        
+        JLabel lblNewLabel_3 = new JLabel("Heads");
+        lblNewLabel_3.setBounds(564, 347, 45, 13);
+        contentPane.add(lblNewLabel_3);
+        
+        JLabel lblNewLabel_3_1 = new JLabel("Tails");
+        lblNewLabel_3_1.setBounds(564, 390, 45, 13);
+        contentPane.add(lblNewLabel_3_1);
+        
+        txtTailsCount = new JTextField();
+        txtTailsCount.setEditable(false);
+        txtTailsCount.setColumns(10);
+        txtTailsCount.setBounds(564, 404, 96, 19);
+        contentPane.add(txtTailsCount);
 
         // Create and set up the "Toss" button
         JButton btnNewButton = new JButton("Toss");
@@ -117,6 +143,7 @@ public class GUI extends JFrame {
                 // If a coin is selected, perform the toss
             	if (selectedCoin != null){
             		
+            		CoinToss coinToss = new CoinToss();
             		int tossNumber = coinToss.getTossNumber(txtTossNumber.getText());
             		
             		for (int i = 0; i < tossNumber; i++) {
@@ -132,6 +159,10 @@ public class GUI extends JFrame {
 	                        contentPane.repaint(); // Repaint the content pane
 	                    }
             		}
+            		
+            		
+            		txtHeadCount.setText(String.valueOf(coinToss.numberOfHeads));
+            		txtTailsCount.setText(String.valueOf(coinToss.numberOfTails));
             	}
             }
         });
@@ -178,12 +209,12 @@ class Picture {
     }
 }
 
-class coinToss {
+class CoinToss {
     
-    public static int numberOfHeads = 0;
-    public static int numberOfTails = 0;
+    public int numberOfHeads = 0;
+    public int numberOfTails = 0;
     
-    public static String Toss() {
+    public String Toss() {
         // Simulate a coin toss
         Random rand = new Random();
         int randNumber = rand.nextInt(50);
@@ -199,7 +230,7 @@ class coinToss {
         }
     }
     
-    public static int getTossNumber(String txtTossNumber) {
+    public int getTossNumber(String txtTossNumber) {
     	
     	int number = Integer.parseInt(txtTossNumber);
     	
