@@ -3,7 +3,6 @@ import java.util.*;
 public class Main {
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		Random rand = new Random();
 		Scanner myObj = new Scanner(System.in);
@@ -40,7 +39,7 @@ public class Main {
 			userWantsToPlay = myObj.nextLine().toLowerCase();
 			
 		}
-		
+		myObj.close();
 		System.out.println("Stats: \n Heads: " + numberOfHeads + "\n Tails: " + numberOfTails);
 
 	}
