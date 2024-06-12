@@ -16,7 +16,9 @@ import java.util.Map;
 import java.util.Random;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import java.awt.Color;
 
 public class GUI extends JFrame {
 
@@ -26,6 +28,8 @@ public class GUI extends JFrame {
     private JTextField txtTossNumber;
     private JTextField txtHeadCount;
     private JTextField txtTailsCount;
+    
+    private static final Color WHITE_COLOR = Color.WHITE;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -142,10 +146,16 @@ public class GUI extends JFrame {
                         @Override
                         protected Void doInBackground() throws Exception {
                             for (int i = 0; i < tossNumber; i++) {
+                            	
+                                JLabel newLabelWhite = picture.showToss("White", "Image", width, height);
+                                publish(newLabelWhite);
+                                Thread.sleep(300);
+                                
                                 String result = coinToss.Toss();
                                 JLabel newLabel = picture.showToss(selectedCoin, result, width, height);
                                 publish(newLabel);
                                 Thread.sleep(1000); // 1 second delay between tosses
+
                             }
                             return null;
                         }
@@ -154,11 +164,11 @@ public class GUI extends JFrame {
                         protected void process(java.util.List<JLabel> chunks) {
                             if (!chunks.isEmpty()) {
                                 JLabel newLabel = chunks.get(chunks.size() - 1);
-                                contentPane.remove(tossResultLabel);
-                                tossResultLabel = newLabel;
-                                contentPane.add(tossResultLabel);
-                                contentPane.revalidate();
-                                contentPane.repaint();
+                                contentPane.remove(tossResultLabel); // Remove the old label
+                                tossResultLabel = newLabel; // Update the reference
+                                contentPane.add(tossResultLabel); // Add the new label
+                                contentPane.revalidate(); // Revalidate the content pane
+                                contentPane.repaint(); // Repaint the content pane
                             }
                         }
 
@@ -191,6 +201,7 @@ class Picture {
         coinSideToUrlMap.put("Penny Tails", "img/PennyTails.jpg");
         coinSideToUrlMap.put("Dime Heads", "img/DimeHeads.jpg");
         coinSideToUrlMap.put("Dime Tails", "img/DimeTails.jpg");
+        coinSideToUrlMap.put("White Image", "img/WhiteImage.jpg");
     }
     
     JLabel showToss(String coin, String side, int width, int height) {
