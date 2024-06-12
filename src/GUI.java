@@ -174,26 +174,26 @@ public class GUI extends JFrame {
 
 class Picture {
     
-	private final Map<String, String> coinSideToUrlMap;
+    private final Map<String, String> coinSideToUrlMap;
 
     public Picture() {
-        // Initialize the map with coin side and corresponding image URLs
+        // Initialize the map with coin side and corresponding relative image paths
         coinSideToUrlMap = new HashMap<>();
-        coinSideToUrlMap.put("Quarter Heads", "C:\\Users\\jesus\\eclipse-workspace\\SENG210\\CoinTossSimulator\\img\\QuarterHeads.jpg");
-        coinSideToUrlMap.put("Quarter Tails", "C:\\Users\\jesus\\eclipse-workspace\\SENG210\\CoinTossSimulator\\img\\QuarterTails.jpg");
-        coinSideToUrlMap.put("Nickel Heads", "C:\\Users\\jesus\\eclipse-workspace\\SENG210\\CoinTossSimulator\\img\\NickelHeads.jpg");
-        coinSideToUrlMap.put("Nickel Tails", "C:\\Users\\jesus\\eclipse-workspace\\SENG210\\CoinTossSimulator\\img\\NickelTails.jpg");
-        coinSideToUrlMap.put("Penny Heads", "C:\\Users\\jesus\\eclipse-workspace\\SENG210\\CoinTossSimulator\\img\\PennyHeads.jpg");
-        coinSideToUrlMap.put("Penny Tails", "C:\\Users\\jesus\\eclipse-workspace\\SENG210\\CoinTossSimulator\\img\\PennyTails.jpg");
-        coinSideToUrlMap.put("Dime Heads", "C:\\Users\\jesus\\eclipse-workspace\\SENG210\\CoinTossSimulator\\img\\DimeHeads.jpg");
-        coinSideToUrlMap.put("Dime Tails", "C:\\Users\\jesus\\eclipse-workspace\\SENG210\\CoinTossSimulator\\img\\DimeTails.jpg");
+        coinSideToUrlMap.put("Quarter Heads", "img/QuarterHeads.jpg");
+        coinSideToUrlMap.put("Quarter Tails", "img/QuarterTails.jpg");
+        coinSideToUrlMap.put("Nickel Heads", "img/NickelHeads.jpg");
+        coinSideToUrlMap.put("Nickel Tails", "img/NickelTails.jpg");
+        coinSideToUrlMap.put("Penny Heads", "img/PennyHeads.jpg");
+        coinSideToUrlMap.put("Penny Tails", "img/PennyTails.jpg");
+        coinSideToUrlMap.put("Dime Heads", "img/DimeHeads.jpg");
+        coinSideToUrlMap.put("Dime Tails", "img/DimeTails.jpg");
     }
     
     JLabel showToss(String coin, String side, int width, int height) {
-        // Get the image URL based on the coin and side
+        // Get the relative image path based on the coin and side
         String key = coin + " " + side;
-        String url = coinSideToUrlMap.get(key);
-        ImageIcon coinIcon = new ImageIcon(url);
+        String URL = coinSideToUrlMap.get(key);
+        ImageIcon coinIcon = new ImageIcon(URL);
         
         // Resize the image
         Image originalImage = coinIcon.getImage();
